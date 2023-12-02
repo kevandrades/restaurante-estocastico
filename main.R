@@ -3,7 +3,7 @@ pacman::p_load(tidyverse, lubridate, simmer, simmer.plot)
 
 
 #leitura dos dados
-dados <- readxl::read_xlsx("Dados Restaurante.xlsx") %>%
+dados <- readxl::read_xlsx("data/Dados Restaurante.xlsx") %>%
   mutate(
     `Tempo no Canal` = force_tz(`Tempo no Canal`, tzone = "UTC"),
     `Tempo de Entrega` = force_tz(`Tempo de Entrega`, tzone = "UTC"),
