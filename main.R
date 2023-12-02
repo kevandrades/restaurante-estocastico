@@ -5,14 +5,13 @@ library(simmer.plot)
 
 
 #leitura dos dados
-dados <- readxl::read_xlsx("Dados Restaurante.xlsx")
-
-# limpeza da coluna de minutos
-dados$`Tempo no Canal` <- force_tz(dados$`Tempo no Canal`, tzone = "UTC")
-dados$`Tempo de Entrega` <- force_tz(dados$`Tempo de Entrega`, tzone = "UTC")
-dados$`Tempo no Canal` <- minute(dados$`Tempo no Canal`)
-dados$`Tempo de Entrega` <- minute(dados$`Tempo de Entrega`)
-
+dados <- readxl::read_xlsx("Dados Restaurante.xlsx") %>%
+  mutate(
+    `Tempo no Canal` = force_tz(`Tempo no Canal`, tzone = "UTC"),
+    `Tempo de Entrega` = force_tz(`Tempo de Entrega`, tzone = "UTC"),
+    `Tempo no Canal` = minute(`Tempo no Canal`),
+    `Tempo de Entrega` = minute(`Tempo de Entrega`)
+  )
 
 # tabela das médias de tempo de entrega por canal
 # aqui estou pensando como separar as médias. o balcão obviamente é separado dos demais,
@@ -39,8 +38,6 @@ tempo_atendim_pcanal <- dados %>%
   group_by(`Tipo de Canal`) %>%
   summarise("Tempo médio no Canal" = mean(`Tempo no Canal`))
 
-
-
 # tempo de produção do pedido
 # aparentemente é algo em torno de 20 a 30 minutos...
 temp_preparacao <- 20
@@ -58,8 +55,6 @@ pedidos_minuto <- pedidos_hora/60
 atendimento_hora <- 2.29  # média de pedidos atendidos por hora 
 tempo_atendimento <- 26.21 # tempo médio de atendimento por pedido
 tempo_simulacao <- 3.5*60 
-
-
 
 
 
@@ -143,6 +138,7 @@ env %>%
 
 
 # reset e run
-reset(env)%>%run(until=tempo_simulacao)
+reset(env) %>%
+  run(until=tempo_simulacao)
 
 plot(pedidos)
