@@ -1,7 +1,5 @@
-library(tidyverse)
-library(lubridate)
-library(simmer)
-library(simmer.plot)
+if (!require(pacman)) install.packages(pacman)
+pacman::p_load(tidyverse, lubridate, simmer, simmer.plot)
 
 
 #leitura dos dados
