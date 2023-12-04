@@ -144,3 +144,5 @@ plot(pedidos)
 resources <- get_mon_resources(env)
 
 plot(resources, metric='utilization')
+
+ggsave('img/utilization_resources.pdf', width=10.1, height = 5.05)
