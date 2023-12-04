@@ -159,3 +159,7 @@ ggsave('img/chegadas.pdf', width=10.1, height = 5.05)
 plot(arrivals, metric = "waiting_time")
 
 ggsave('img/tempo_espera.pdf', width=10.1, height = 5.05)
+
+plot(arrivals, metric = "activity_time")
+
+ggsave('img/tempo_espera.pdf', width=10.1, height = 5.05)
