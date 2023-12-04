@@ -139,15 +139,17 @@ env %>%
 reset(env) %>%
   run(until=tempo_simulacao)
 
+# _________________________________________
 plot(pedidos)
 
+# _________________________________________
 resources <- get_mon_resources(env)
 
 plot(resources, metric='utilization')
 
 ggsave('img/utilization_resources.pdf', width=10.1, height = 5.05)
 
-
+# _________________________________________
 arrivals <- get_mon_arrivals(env)
 
 plot(arrivals, metric = "flow_time")
