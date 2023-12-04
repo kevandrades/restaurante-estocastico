@@ -1,5 +1,5 @@
 if (!require(pacman)) install.packages("pacman")
-pacman::p_load(tidyverse, lubridate, simmer, simmer.plot)
+pacman::p_load(tidyverse, lubridate, simmer, simmer.plot, simmer.bricks)
 
 
 #leitura dos dados
@@ -140,3 +140,7 @@ reset(env) %>%
   run(until=tempo_simulacao)
 
 plot(pedidos)
+
+resources <- get_mon_resources(env)
+
+plot(resources, metric='utilization')
