@@ -146,3 +146,10 @@ resources <- get_mon_resources(env)
 plot(resources, metric='utilization')
 
 ggsave('img/utilization_resources.pdf', width=10.1, height = 5.05)
+
+
+arrivals <- get_mon_arrivals(env)
+
+plot(arrivals, metric = "flow_time")
+
+ggsave('img/chegadas.pdf', width=10.1, height = 5.05)
