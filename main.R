@@ -162,4 +162,4 @@ ggsave('img/tempo_espera.pdf', width=10.1, height = 5.05)
 
 plot(arrivals, metric = "activity_time")
 
-ggsave('img/tempo_espera.pdf', width=10.1, height = 5.05)
+ggsave('img/tempo_atividade.pdf', width=10.1, height = 5.05)
