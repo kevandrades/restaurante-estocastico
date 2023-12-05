@@ -68,30 +68,37 @@ env <- simmer("Restaurante")   # ambiente
 # adicionando as probabilidades de cada ramificação (canal de atendimento)
 
 pedidos <- trajectory("pedido") %>%
-  seize("res0", 1) %>%
+  seize("atendente", 1) %>%
   branch(
     function() sample(1:4, size = 1, prob=c(.4,.3,.2,.1)),
-    TRUE,
-         trajectory("whatsapp") %>%
-            seize("atendente", 1) %>%
+    c(TRUE, TRUE, TRUE, FALSE),
+        trajectory("whatsapp") %>%
             timeout(function() rexp(1, 1/atend_wpp)), # definir média de tempo para a atendente anotar o pedido e solicitar preparação
-         trajectory("telefone") %>%
-            seize("atendente", 1) %>%
+        trajectory("telefone") %>%
             timeout(function() rexp(1, 1/atend_tel)), # definir média de tempo para a atendente anotar o pedido e solicitar preparação
         trajectory("app") %>%
-            seize("atendente", 1) %>%
             timeout(function() rexp(1, 1/atend_app)),
         trajectory("balcao") %>%
-            seize("atendente", 1) %>%
-            timeout(function() rexp(1, 1/atend_balcao))
+            timeout(function() rexp(1, 1/atend_balcao)) %>%
+            release("atendente", 1) %>%
+            seize("preparação", 1) %>% # ocupa uma preparação
+            timeout(function() rexp(1, 1/temp_preparacao)) %>%  # definir média de tempo de preparação
+            release("preparação", 1)
   ) %>%
   release("atendente", 1) %>%
   seize("preparação", 1) %>% # ocupa uma preparação
   timeout(function() rexp(1, 1/temp_preparacao)) %>%  # definir média de tempo de preparação
-  release("preparação", 1) %>% # libera uma preparação
-  seize("entrega", 1) %>%  # ocupa uma entrega
+  release("preparação", 1) %>%
+  seize("entrega", 1) %>%
   timeout(function() rexp(1, 1/entrega_telwpp)) %>%
-  release("entrega", 1) # libera uma entrega
+  release("entrega", 1)
+
+
+
+
+
+
+
 
 
 # existem os seguintes funcionários:
