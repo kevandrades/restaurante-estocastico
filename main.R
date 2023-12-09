@@ -129,8 +129,8 @@ envs <- lapply(1:100, function(i){
 
 # plot do tempo medio de espera ----
 plot(get_mon_arrivals(env), "waiting_time", ann = FALSE)
+ggsave('img/umasimulacaoreal.pdf', width = 7, height = 5)
 plot(get_mon_arrivals(envs), "waiting_time", ann = FALSE)
-
 
 
 # Quantidade de clientes atendidos no sistema: ----
@@ -152,6 +152,7 @@ prop_atend <- 30.16/46.29
 # utilização dos recursos na simulação lote ----
 resources <- get_mon_resources(envs)
 plot(resources, metric = "utilization")
+ggsave('img/recursos_sima.pdf', width = 7, height = 5)
 
 
 # otimização ----
@@ -264,6 +265,7 @@ envs2 <- lapply(1:100, function(i){
 
 # plot do tempo medio de espera ----
 plot(get_mon_arrivals(env_opt), "waiting_time", ann = FALSE)
+ggsave("img/umasimulacao_opt.pdf", width=7, height=5)
 
 # Quantidade de clientes atendidos no sistema: ----
 get_mon_arrivals(envs2) %>%
@@ -283,3 +285,4 @@ prop_opt <- 40.83/63.64
 # utilização dos recursos na simulação lote otimizada ----
 resources <- get_mon_resources(envs2)
 plot(resources, metric = "utilization")
+ggsave('img/recursos_simb.pdf', width = 7, height = 5)
