@@ -283,6 +283,6 @@ get_mon_arrivals(envs2) %>%
 prop_opt <- 40.83/63.64
 
 # utilização dos recursos na simulação lote otimizada ----
-resources <- get_mon_resources(envs2)
-plot(resources, metric = "utilization")
+resources2 <- get_mon_resources(envs2)
+plot(resources2, metric = "utilization")
 ggsave('img/recursos_simb.pdf', width = 7, height = 5)
